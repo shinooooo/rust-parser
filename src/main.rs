@@ -20,6 +20,23 @@ impl<T> Annot<T> {
     }
 }
 
-fn main() {
-    println!("Hello, world!");
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+enum TokenKind {
+    Number(u64),
+
+    Plus,
+
+    Minus,
+
+    Asterisk,
+
+    Slash,
+
+    LParen,
+
+    RParen,
 }
+
+type Token = Annot<TokenKind>;
+
+fn main() {}
