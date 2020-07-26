@@ -16,7 +16,7 @@ struct Annot<T> {
 
 impl<T> Annot<T> {
     fn new(value: T, loc: Loc) -> Self {
-        Self { value, oc }
+        Self { value, loc }
     }
 }
 
