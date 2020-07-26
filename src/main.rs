@@ -66,4 +66,22 @@ impl Token {
     }
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+enum LexErrorKind {
+    InvalidChar(char),
+    Eof,
+}
+
+type LexError = Annot<LexErrorKind>;
+
+impl LexError {
+    fn invalid_char(c: char, loc: Loc) -> Self {
+        LexError::new(LexErrorKind::InvalidChar(c), loc)
+    }
+
+    fn eof(loc: Loc) -> Self {
+        LexError::new(LexErrorKind::Eof, loc)
+    }
+}
+
 fn main() {}
