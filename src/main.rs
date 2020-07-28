@@ -171,7 +171,24 @@ fn lex(input: &str) -> Result<Vec<Token>, LexError> {
             b => return Err(LexError::invalid_char(b as char, Loc(pos, pos + 1))),
         }
     }
-    Ok(token)
+    Ok(tokens)
 }
 
 fn main() {}
+
+#[test]
+fn test_loxer() {
+    assert_eq!(
+        lex("1 + 2 * 3 - -10"),
+        Ok(vec![
+            Token::number(1, Loc(0, 1)),
+            Token::plus(Loc(2, 3)),
+            Token::number(2, Loc(4, 5)),
+            Token::asterisk(Loc(6, 7)),
+            Token::number(3, Loc(8, 9)),
+            Token::minus(Loc(10, 11)),
+            Token::minus(Loc(12, 13)),
+            Token::number(10, Loc(13, 15)),
+        ])
+    )
+}
