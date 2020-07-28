@@ -118,14 +118,14 @@ fn lex_rparen(input: &[u8], start: usize) -> Result<(Token, usize), LexError> {
     consume_byte(input, start, b')').map(|(_, end)| (Token::rparen(Loc(start, end)), end))
 }
 
-fn recognize_many(input: &[u8], mut pos: usize, mut F: impl FnMut(u8) -> bool) -> usize {
-    while pos < input.len() && F(input[pos]) {
+fn recognize_many(input: &[u8], mut pos: usize, mut f: impl FnMut(u8) -> bool) -> usize {
+    while pos < input.len() && f(input[pos]) {
         pos += 1;
     }
     pos
 }
 
-fn lex_number(input: &[u8], mut pos: usize) -> Result<(Token, usize), LexError> {
+fn lex_number(input: &[u8], pos: usize) -> Result<(Token, usize), LexError> {
     use std::str::from_utf8;
 
     let start = pos;
