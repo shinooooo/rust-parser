@@ -225,6 +225,46 @@ enum UniOpKind {
     Minus,
 }
 
+type UniOp = Annot<UniOpKind>;
+
+impl UniOp {
+    fn plus(loc: Loc) -> Self {
+        Self::new(UniOpKind::Plus, loc)
+    }
+
+    fn minus(loc: Loc) -> Self {
+        Self::new(UniOpKind::Minus, loc)
+    }
+}
+
+enum BinOpKind {
+    Add,
+
+    Sub,
+
+    Mult,
+
+    Div,
+}
+
+type BinOp = Annot<BinOpKind>;
+
+impl BinOp {
+    fn add(loc: Loc) -> Self {
+        Self::new(BinOpKind::Add, loc)
+    }
+
+    fn sub(loc: Loc) -> Self {
+        Self::new(BinOpKind::Sub, loc)
+    }
+    fn mult(loc: Loc) -> Self {
+        Self::new(BinOpKind::Mult, loc)
+    }
+    fn div(loc: Loc) -> Self {
+        Self::new(BinOpKind::Div, loc)
+    }
+}
+
 fn main() {
     use std::io::{stdin, BufRead, BufReader};
 
