@@ -185,6 +185,40 @@ fn prompt(s: &str) -> io::Result<()> {
     stdout.flush()
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+enum AstKind {
+    Num(u64),
+
+    UniOp{ op: UniOp, e: Box<Ast> },
+
+    BinOp{ op : BinOp, l: Box<Ast>, Box<Ast> },
+}
+
+type Ast = Annot<AstKind>
+
+impl Ast {
+    fn num(n: u64m loc, Loc) -> Self {
+        Self::new(AstKind::Num(n), loc)
+    }
+
+    fn uniop(op: UniOp, e: Ast, loc:Loc) -> Self {
+        Self::new(AstKind::UniOp{ op, e: Box::new(e) }, loc)
+    }
+
+    fn binop(op: BinOp, l: Ast, r: Ast, loc: Loc) -> Self {
+        Self::new(
+            AskKind::BinOp {
+                op,
+                l: Box::new(l),
+                r: Box::new(r),
+            },
+            loc,
+        )
+    }
+}
+
+
+
 fn main() {
     use std::io::{stdin, BufRead, BufReader};
 
