@@ -189,25 +189,25 @@ fn prompt(s: &str) -> io::Result<()> {
 enum AstKind {
     Num(u64),
 
-    UniOp{ op: UniOp, e: Box<Ast> },
+    UniOp { op: UniOp, e: Box<Ast> },
 
-    BinOp{ op : BinOp, l: Box<Ast>, Box<Ast> },
+    BinOp { op: BinOp, l: Box<Ast>, r: Box<Ast> },
 }
 
-type Ast = Annot<AstKind>
+type Ast = Annot<AstKind>;
 
 impl Ast {
-    fn num(n: u64m loc, Loc) -> Self {
+    fn num(n: u64, loc: Loc) -> Self {
         Self::new(AstKind::Num(n), loc)
     }
 
-    fn uniop(op: UniOp, e: Ast, loc:Loc) -> Self {
-        Self::new(AstKind::UniOp{ op, e: Box::new(e) }, loc)
+    fn uniop(op: UniOp, e: Ast, loc: Loc) -> Self {
+        Self::new(AstKind::UniOp { op, e: Box::new(e) }, loc)
     }
 
     fn binop(op: BinOp, l: Ast, r: Ast, loc: Loc) -> Self {
         Self::new(
-            AskKind::BinOp {
+            AstKind::BinOp {
                 op,
                 l: Box::new(l),
                 r: Box::new(r),
@@ -217,7 +217,13 @@ impl Ast {
     }
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 
+enum UniOpKind {
+    Plus,
+
+    Minus,
+}
 
 fn main() {
     use std::io::{stdin, BufRead, BufReader};
