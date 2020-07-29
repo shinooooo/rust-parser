@@ -265,6 +265,21 @@ impl BinOp {
     }
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+enum ParseError {
+    UnexpectedToken(Token),
+
+    NotExpression(Token),
+
+    NotOperator(Token),
+
+    UnclosedOpenParen(Token),
+
+    RedeundantExpression(Token),
+
+    Eof,
+}
+
 fn main() {
     use std::io::{stdin, BufRead, BufReader};
 
